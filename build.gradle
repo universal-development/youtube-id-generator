@@ -12,6 +12,13 @@ subprojects {
         mavenCentral()
     }
 
+    // internal env configuration -Dunidev
+    if (project.hasProperty('unidev')) {
+        apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
+        apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
+        apply from: 'http://dev.local/gradle/javadoc.groovy'
+    }
+
     dependencies  {
         testCompile("org.assertj:assertj-core:3.9.1")
 
