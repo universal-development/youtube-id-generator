@@ -19,6 +19,21 @@ subprojects {
         apply from: 'http://dev.local/gradle/javadoc.groovy'
     }
 
+    // bintray upload -Dbintray
+    if (project.hasProperty('bintray')) {
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    name = 'youtube-id-generator'
+                    repository(id: 'unidev-platformy', url: 'https://api.bintray.com/content/universal-development/unidev-libs/youtube-id-generator/'+ project.version){
+                        authentication(userName: System.getenv('BINTRAY_USER'), password: System.getenv('BINTRAY_KEY'))
+                    }
+                }
+            }
+        }
+
+    }
+
     dependencies  {
         testCompile("org.assertj:assertj-core:3.9.1")
 
