@@ -6,13 +6,13 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.7.2"
+    id 'com.palantir.git-version' version '0.12.3'
 }
-
 
 subprojects {
 
     group = 'com.unidev.idgenerator'
-    version = '0.0.8-2'
+    version gitVersion()
 
     apply plugin: 'maven'
     apply plugin: 'java'
@@ -41,7 +41,7 @@ subprojects {
     }
 
     // bintray upload -Pbintray
-    if (project.hasProperty('bintray')) {
+    if (project.hasProperty('bintray') && gitVersion() != 'unspecified') {
 
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
