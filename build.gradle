@@ -41,7 +41,7 @@ subprojects {
     }
 
     // bintray upload -Pbintray
-    if (project.hasProperty('bintray') && gitVersion() != 'unspecified') {
+    if (project.hasProperty('bintray') && versionDetails().branchName == 'master') {
 
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
