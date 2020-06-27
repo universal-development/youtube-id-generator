@@ -2,4 +2,4 @@ language: java
 jdk:
   - oraclejdk11
 script:
-  - ./gradlew clean build uploadArchives -Dbintray
+  - ./gradlew clean build uploadArchives -Pbintray
