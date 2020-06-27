@@ -12,7 +12,7 @@ plugins {
 subprojects {
 
     group = 'com.unidev.idgenerator'
-    version = '0.0.7'
+    version = '0.0.8-2'
 
     apply plugin: 'maven'
     apply plugin: 'java'
@@ -23,11 +23,21 @@ subprojects {
         mavenCentral()
     }
 
-    // internal env configuration -Punidev
-    if (project.hasProperty('unidev')) {
-        apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
-        apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
-        apply from: 'http://dev.local/gradle/javadoc.groovy'
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    javadoc.failOnError = false
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
     }
 
     // bintray upload -Pbintray
