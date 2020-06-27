@@ -1,33 +1,52 @@
+buildscript {
+  repositories {
+        jcenter()
+   }
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.7.2"
+}
+
+group = 'com.unidev.idgenerator'
+version = '0.0.5'
+
 subprojects {
-
-
-    group = 'com.unidev.idgenerator'
-    version = '0.0.1'
 
     apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'com.jfrog.bintray'
 
     repositories {
         mavenCentral()
     }
 
-    // internal env configuration -Dunidev
+    // internal env configuration -Punidev
     if (project.hasProperty('unidev')) {
         apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
         apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
         apply from: 'http://dev.local/gradle/javadoc.groovy'
     }
 
-    // bintray upload -Dbintray
+    // bintray upload -Pbintray
     if (project.hasProperty('bintray')) {
-        uploadArchives {
-            repositories {
-                mavenDeployer {
-                    name = 'youtube-id-generator'
-                    repository(id: 'unidev-platformy', url: 'https://api.bintray.com/content/universal-development/unidev-libs/youtube-id-generator/'+ project.version){
-                        authentication(userName: System.getenv('BINTRAY_USER'), password: System.getenv('BINTRAY_KEY'))
-                    }
+
+        bintray {
+            user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+            key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+            configurations = ['archives']
+
+            pkg {
+                repo = 'unidev-libs'
+                name = 'youtube-id-generator'
+                userOrg = 'universal-development'
+                licenses = ['Apache-2.0']
+                vcsUrl = 'https://github.com/universal-development/youtube-id-generator'
+                version {
+                    name = "${project.version}"
+                    desc = "${project.version}"
+                    released  = new Date()
                 }
             }
         }
