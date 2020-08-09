@@ -1,7 +1,7 @@
 buildscript {
-  repositories {
+    repositories {
         jcenter()
-   }
+    }
 }
 
 plugins {
@@ -43,8 +43,8 @@ subprojects {
         archives javadocJar
     }
 
-    // bintray upload -Pbintray
-    if (project.hasProperty('bintray')) {
+    // bintray upload -Pbintray + master branch
+    if (project.hasProperty('bintray') && 'master' == details.branchName) {
 
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
@@ -61,14 +61,14 @@ subprojects {
                 version {
                     name = "${project.version}"
                     desc = "${project.version}"
-                    released  = new Date()
+                    released = new Date()
                 }
             }
         }
 
     }
 
-    dependencies  {
+    dependencies {
         testCompile("org.assertj:assertj-core:3.9.1")
 
         testImplementation(
