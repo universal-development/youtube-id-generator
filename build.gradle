@@ -16,6 +16,7 @@ subprojects {
 
     def details = versionDetails()
     printf details.toString()
+    printf details.branchName
 
     apply plugin: 'maven'
     apply plugin: 'java'
