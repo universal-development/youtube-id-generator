@@ -16,7 +16,6 @@ subprojects {
 
     def details = versionDetails()
     printf details.toString()
-    printf details.branchName
 
     apply plugin: 'maven'
     apply plugin: 'java'
@@ -45,7 +44,7 @@ subprojects {
     }
 
     // bintray upload -Pbintray + master branch
-    if (project.hasProperty('bintray') && 'master' == details.branchName) {
+    if (project.hasProperty('bintray') && 'master' == "$System.env.TRAVIS_BRANCH") {
 
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
