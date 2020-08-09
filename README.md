@@ -4,6 +4,32 @@
 
 Easy generation of 'Youtube' like id from Java.
 
+
+ [ ![Download](https://api.bintray.com/packages/universal-development/unidev-libs/youtube-id-generator/images/download.svg) ](https://bintray.com/universal-development/unidev-libs/youtube-id-generator/_latestVersion)
+
+
+Gradle:
+```
+repositories {
+    maven {
+        url  "https://dl.bintray.com/universal-development/unidev-libs" 
+    }
+}
+...
+implementation 'com.unidev.idgenerator:youtube-id-generator:0.0.10-6-gd86a9d6'
+```
+
+Maven:
+Add repository: https://dl.bintray.com/universal-development/unidev-libs
+```
+<dependency>
+  <groupId>com.unidev.idgenerator</groupId>
+  <artifactId>youtube-id-generator</artifactId>
+  <version>0.0.10-6-gd86a9d6</version>
+  <type>pom</type>
+</dependency>
+```
+
 Example :
 
 ```
