@@ -2,4 +2,5 @@ language: java
 jdk:
   - oraclejdk11
 script:
+  - env
   - ./gradlew clean build bintrayUpload -Pbintray  --no-build-cache
