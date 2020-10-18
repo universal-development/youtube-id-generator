@@ -26,6 +26,16 @@ subprojects {
         mavenCentral()
     }
 
+    dependencies {
+        testCompile("org.assertj:assertj-core:3.9.1")
+
+        testImplementation(
+                'org.junit.jupiter:junit-jupiter-api:5.1.0'
+        )
+        testRuntimeOnly(
+                'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+        )
+    }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
@@ -44,7 +54,7 @@ subprojects {
     }
 
     // bintray upload -Pbintray + master branch
-    if (project.hasProperty('bintray') && System.env.TRAVIS_TAG != null) {
+    if (project.hasProperty('bintray') && System.env.TRAVIS_TAG != null && System.env.TRAVIS_TAG != '') {
         println "\nUploading to bintray...\n"
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
@@ -67,16 +77,4 @@ subprojects {
         }
 
     }
-
-    dependencies {
-        testCompile("org.assertj:assertj-core:3.9.1")
-
-        testImplementation(
-                'org.junit.jupiter:junit-jupiter-api:5.1.0'
-        )
-        testRuntimeOnly(
-                'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-        )
-    }
-
 }
