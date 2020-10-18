@@ -44,8 +44,8 @@ subprojects {
     }
 
     // bintray upload -Pbintray + master branch
-    if (project.hasProperty('bintray') && ('master' == "$System.env.TRAVIS_BRANCH" || System.env.TRAVIS_TAG != null)) {
-        println("Uploading to bintray...")
+    if (project.hasProperty('bintray') && System.env.TRAVIS_TAG != null) {
+        println "\nUploading to bintray...\n"
         bintray {
             user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
             key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_KEY')
