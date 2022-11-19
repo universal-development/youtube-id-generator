@@ -12,11 +12,11 @@ Gradle:
 ```
 repositories {
     maven {
-        url  "https://dl.bintray.com/universal-development/unidev-libs" 
+        url "https://mvn.universal-development.com/public" 
     }
 }
 ...
-implementation 'com.unidev.idgenerator:youtube-id-generator:0.0.10-6-gd86a9d6'
+implementation 'com.unidev.idgenerator:youtube-id-generator:0.0.12'
 ```
 
 Maven:

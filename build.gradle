@@ -1,37 +1,34 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
+plugins {
+    id 'maven-publish'
+    id "com.palantir.git-version" version "0.12.3"
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.2"
-    id 'com.palantir.git-version' version '0.12.3'
-}
 
 subprojects {
 
     group = 'com.unidev.idgenerator'
-    version gitVersion()
+    version = gitVersion()
 
     def details = versionDetails()
     printf details.toString()
 
-    apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'com.jfrog.bintray'
+    apply plugin: 'maven-publish'
 
     repositories {
         mavenCentral()
+        maven {
+            url "https://mvn.universal-development.com/public"
+        }
     }
 
     dependencies {
-        testCompile("org.assertj:assertj-core:3.9.1")
-
         testImplementation(
-                'org.junit.jupiter:junit-jupiter-api:5.1.0'
+                "org.assertj:assertj-core:3.9.1",
+                "org.junit.jupiter:junit-jupiter-api:5.1.0"
         )
+
         testRuntimeOnly(
                 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
         )
@@ -53,28 +50,17 @@ subprojects {
         archives javadocJar
     }
 
-    // bintray upload -Pbintray + master branch
-    if (project.hasProperty('bintray') && System.env.TRAVIS_TAG != null && System.env.TRAVIS_TAG != '') {
-        println "\nUploading to bintray...\n"
-        bintray {
-            user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-            key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_KEY')
-            configurations = ['archives']
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
 
-            pkg {
-                repo = 'unidev-libs'
-                name = 'youtube-id-generator'
-                userOrg = 'universal-development'
-                licenses = ['Apache-2.0']
-                vcsUrl = 'https://github.com/universal-development/youtube-id-generator'
-                publish = true
-                version {
-                    name = "${project.version}"
-                    desc = "${project.version}"
-                    released = new Date()
-                }
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
             }
         }
-
     }
+
 }
