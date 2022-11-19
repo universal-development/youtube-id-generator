@@ -18,20 +18,7 @@ repositories {
 ...
 implementation 'com.unidev.idgenerator:youtube-id-generator:0.0.12'
 ```
-
-Maven:
-Add repository: https://dl.bintray.com/universal-development/unidev-libs
-```
-<dependency>
-  <groupId>com.unidev.idgenerator</groupId>
-  <artifactId>youtube-id-generator</artifactId>
-  <version>0.0.10-6-gd86a9d6</version>
-  <type>pom</type>
-</dependency>
-```
-
 Example :
-
 ```
 import com.unidev.idgenerator.YoutubeIdGenerator;
 
@@ -44,7 +31,7 @@ String id = youtubeIdGenerator.generate("potato");
 
 Each time, for same input string, will be same generated id.
 
-
 # Built artifacts
 
-https://bintray.com/universal-development/unidev-libs/youtube-id-generator
+https://mvn.universal-development.com/
+
